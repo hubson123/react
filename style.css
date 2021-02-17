@@ -1,16 +1,21 @@
-body {
-  overflow: hidden;
-  text-align: center;
+html {
+  font-size: 20px;
+  font-family: sans-serif;
 }
-.title {
-  font-family: arial;
-  padding: 30px;
-  font-size: 50px;
+li {
+  line-height: 160%;
+  padding: 20px 10px;
+  cursor: pointer;
 }
-input[type="text"],
-button {
-  padding: 10px, 30px;
-  border: black 2px solid;
-  font-size: 30px;
-  outline: none;
+li:nth-child(even) {
+  background-color: blanchedalmond;
+}
+li:nth-child(odd) {
+  background-color: cadetblue;
+}
+.enabled {
+  font-weight: bold;
+}
+.disabled {
+  color: gray;
 }

@@ -1,111 +1,34 @@
-//console.log(React);
-//console.log(ReactDOM);
-/* const header = <h1 className="title">Witaj na stronie!</h1>
-const classBig = "big";
-const handleClick = () => alert('udało sie klik!')
-const main =(
-    <div>
-        <h1 person="osoby" onClick={handleClick} className="red">Pierwszy artykuł</h1>
-        <p>Lorem Ipsum is simply
-             dummy text of the 
-             printing and typesetting
-              industry. Lorem Ipsum has been the
-               industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-        </p>
-    </div>
-)
-const tekst = "stopkdad";
-const largeTxt = "duzo udzo dhdhosdho o vojo dsoids isd v sdiovdsi";
-const footer = (
-<footer>
-    {largeTxt}
-    <p className={classBig}>{tekst}</p>
-</footer>)
-const app = [header,main,footer]
-ReactDOM.render(app, document.getElementById('root')) 
-
-const Header = () =>{
-    return <h1>Witaj na stronie!</h1>
-} 
-
-const App = () => {
+class App extends React.Component {
+  state = {
+    items: [
+      { id: 1, txt: "ziemniak", active: false },
+      { id: 2, txt: "jabłko", active: false },
+      { id: 3, txt: "orzechy", active: false },
+      { id: 4, txt: "kasza", active: false },
+      { id: 5, txt: "chleb", active: false },
+      { id: 6, txt: "gruszka", active: true },
+    ],
+  };
+  handleChangeStatus = (id) => {
+    const items = this.state.items.map((item) => {
+      if (id === item.id) {
+        item.active = !item.active;
+      }
+      return item;
+    });
+    this.setState({
+      items: items,
+    });
+  };
+  render() {
     return (
-        <div>
-            <Header />
-      <App2 />
-        </div>
-      
-    )
-}
-class App2 extends React.Component{
-    state = {
-        number: 0,
-
-    }
-    render(){
-        return(
-            <section>
-                <h2>komponennt klasowy {this.state.number}</h2>
-            </section>
-        )
-    }
-}
-ReactDOM.render(<App />,document.getElementById('root'))
-class SHoppingList extends React.Component{
-    state = {
-        items1: 'ogórki',
-        items2: 'cola',
-        items3: 'piwko'
-    }
-render() {
-    return (
-        <div>
-        <h1>Lista:</h1>
-        <ol>
-        <ItemList example={2+2} name={this.state.items1} />
-        <ItemList name="ele 2" />
-        <ItemList name="ele 3" />
-        </ol>
-        </div>
-    )
-}
-}
-class ItemList extends React.Component{
-render() {
-    return (
-      <li>{this.props.name} {this.props.example}</li>   
+      <>
+        <Header items={this.state.items} />
+        <ListItems
+          changeStatus={this.handleChangeStatus}
+          items={this.state.items}
+        />
+      </>
     );
+  }
 }
-} 
-ReactDOM.render(<SHoppingList />,document.getElementById('root')) */
-
-class App extends React.Component{
-    state = {
-        value: ""
-    }
-    handleInputChange = (e) => {
-        console.log("Zawartość w evencie: " + e.target.value);
-        console.log("Zawartość przed setState: " + this.state.value);
-        this.setState({
-            value: e.target.value
-        })
-        console.log("Zawartość po setState: " + this.state.value);
-        
-    }
-    handleClick = () => {
-      this.setState({
-            value: ""
-        })  
-    }
-    render(){
-        console.log("Zawartosc value w render" + this.state.value)
-        return(
-            <>
-            <input placeholder="wpisz..." value={this.state.value} onChange={this.handleInputChange} type="text" />
-            <button onClick={this.handleClick}>Reset</button>
-            <h2 className="title">{this.state.value.toUpperCase()}</h2>
-            </>
-        )
-    }
-}
-ReactDOM.render(<App />,document.getElementById('root'))
