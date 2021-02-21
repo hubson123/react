@@ -1,10 +1,40 @@
-
 const App = () => {
-    const [counter,setCounter] = React.useState(0);
-    const handleClick = () =>(setCounter(prev =>prev+1))
-    return ( <div onClick={handleClick}>
-<h5>Hi counter</h5>
-{counter}    </div> );
+  const [counter, setCounter] = React.useState(0);
+  const [isActive, setisActive] = React.useState(true);
+  const handleClick = () => setCounter((prev) => prev + 1);
+  const toggleVisibilityCounter = () => {
+    setisActive((pre) => !pre);
+  };
+  const counterComponent = isActive ? <Counter rerenderCounter={counter} />:null;
+  return (
+    <div>
+      <button onClick={toggleVisibilityCounter}>Pokaż/ukryj komponent</button>{" "}
+      <button onClick={handleClick}>Przerenderuj komponent</button>
+   {counterComponent}
+    </div>
+  );
+};
+const Counter = ({rerenderCounter}) => {
+  const [counter, setCounter] = React.useState(0);
+  const handleMouseMove = (e) => {
+    setCounter(e.clientX);
+  };
+  React.useEffect(() => {
+    window.addEventListener("mousemove", handleMouseMove);
+return ()=>{
+    alert('Odmontowano');
+    window.removeEventListener("mousemove", handleMouseMove);
 }
- 
-ReactDOM.render(<App />,document.getElementById('root'));
+
+}, []);
+  return (
+    <div>
+      <p>{counter}</p>
+      {
+        <p>{rerenderCounter}</p>
+      }
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById("root"));
